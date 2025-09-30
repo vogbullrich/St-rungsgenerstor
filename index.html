@@ -1,1 +1,167 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Störungsgenerator</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: url('https://bmg-images.forward-publishing.io/2024/11/07/88c50eff-1daf-4e0d-96de-e5b455e145f0.jpeg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
 
+    .container {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 30px 40px;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      max-width: 550px;
+    }
+
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 12px;
+      font-size: 18px;
+      cursor: pointer;
+      margin: 10px;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    button:hover {
+      background: #0056b3;
+      transform: scale(1.05);
+    }
+
+    #output {
+      margin-top: 30px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+      word-wrap: break-word;
+    }
+
+    select {
+      margin-top: 20px;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Schunk Störungsgenerator 3000</h1>
+
+    <button id="btnZufall">Störung zufällig generieren</button>
+
+    <div>
+      <label for="dropdown"><strong>Kategorie auswählen:</strong></label>
+      <select id="dropdown"></select>
+      <button id="btnSpezifisch">Spezifische Störung generieren</button>
+    </div>
+
+    <button id="btnPdf">Störungsliste gesamt</button>
+
+    <p id="output"></p>
+  </div>
+
+  <script>
+    let stoerungen = {}; // {Kategorie: [Störung1, Störung2]}
+    let alleStoerungen = [];
+    let originalText = "";
+
+    // Textdatei laden
+    fetch("stoerungen.txt")
+      .then(response => {
+        if (!response.ok) throw new Error("Textdatei nicht gefunden");
+        return response.text();
+      })
+      .then(text => {
+        originalText = text;
+        let aktuelleKategorie = null;
+        text.split(/\r?\n/).forEach(line => {
+          line = line.trim();
+          if (!line) return;
+
+          if (line.startsWith("//")) {
+            aktuelleKategorie = line.replace("//", "").trim();
+            if (!stoerungen[aktuelleKategorie]) {
+              stoerungen[aktuelleKategorie] = [];
+            }
+          } else if (aktuelleKategorie) {
+            stoerungen[aktuelleKategorie].push(line);
+            alleStoerungen.push(line);
+          }
+        });
+        fuelleDropdown();
+      })
+      .catch(err => {
+        console.warn("stoerungen.txt konnte nicht geladen werden.", err);
+      });
+
+    function fuelleDropdown() {
+      const dropdown = document.getElementById("dropdown");
+      dropdown.innerHTML = "";
+
+      // Nur Kategorien als Optionen anzeigen
+      Object.keys(stoerungen).forEach(kategorie => {
+        const option = document.createElement("option");
+        option.value = kategorie;
+        option.textContent = kategorie;
+        dropdown.appendChild(option);
+      });
+    }
+
+    document.getElementById("btnZufall").addEventListener("click", () => {
+      if (alleStoerungen.length === 0) {
+        document.getElementById("output").textContent = "Keine Störungen gefunden!";
+        return;
+      }
+      const zufall = alleStoerungen[Math.floor(Math.random() * alleStoerungen.length)];
+      document.getElementById("output").textContent = zufall;
+    });
+
+    document.getElementById("btnSpezifisch").addEventListener("click", () => {
+      const dropdown = document.getElementById("dropdown");
+      const gewaehlteKategorie = dropdown.value;
+      if (gewaehlteKategorie && stoerungen[gewaehlteKategorie].length > 0) {
+        const zufall = stoerungen[gewaehlteKategorie][Math.floor(Math.random() * stoerungen[gewaehlteKategorie].length)];
+        document.getElementById("output").textContent = zufall;
+      } else {
+        document.getElementById("output").textContent = "Keine Störungen in dieser Kategorie!";
+      }
+    });
+
+    document.getElementById("btnPdf").addEventListener("click", () => {
+      if (!originalText) {
+        alert("Keine Störungen geladen!");
+        return;
+      }
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      const lines = originalText.split(/\r?\n/);
+      let y = 10;
+      lines.forEach(line => {
+        doc.text(line, 10, y);
+        y += 10;
+        if (y > 280) { // Neue Seite falls nötig
+          doc.addPage();
+          y = 10;
+        }
+      });
+      doc.output("dataurlnewwindow");
+    });
+  </script>
+</body>
+</html>
