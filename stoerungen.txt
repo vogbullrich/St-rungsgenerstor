@@ -1,0 +1,89 @@
+//Palettierer und Depalettierer
+Timeout X-Achse
+Quertransport lässt Lagen fallen
+Positionen Magnetbalken passen nicht
+Störung Umpolsteuergerät
+Magnetbalken lässt Teile nicht los
+Magnetbalken greift Teile nicht
+FU Störung Magnetbalken
+FU Störung Hubachse Teileseite
+FU Störung Hubachse Lagenseite
+Hubzyl. Magnetbalken fährt ruckartig
+
+
+//Öfen
+Brennerstörung
+Sicherung Heizung ausgelöst
+Zungenband steht
+Zungenband läuft einseitig
+Zungenband Kette springt über
+Schaltschrank Temperatur zu hoch
+Ofenbelader Achse X erkennt Teile nicht
+Ofenbelader Achse X Controllerstörung
+
+//P-Pressen
+Kabelbruch Pulversensor Schlauch
+Kühlaggregat Niveaustörung
+Matritzenheizung FI ausgelöst
+Matritzenkühlung Schlauchschelle defekt
+Matritzenkühlung Leckage am Schlauch
+Verkettung zum Ofenlader ruckelt
+BUK Endlagenstörung Schwenken 1
+BUK Waage zeigt keine korrekten Werte
+Absaugklappe zeigt nicht an
+Schutztüren lassen sich nicht verriegeln
+Schaltschrank Temperatur zu hoch
+MSS Hauptantrieb ausgelöst
+Bildschirm eingefroren
+Teile rutschen aus Bürstengreifer
+ESTA Absaugleistung n.i.O.
+Absaugleitungen voll mit Pulver
+Waage Pusher 1 schiebt schlecht ab
+HK trimmen
+Störung Druckschalter Druckluft
+BUK Teile rutschen aus Greifer
+
+//K-Pressen
+Schutztüren lassen sich nicht verriegeln
+Schaltschrank Temperatur zu hoch
+Pufferstrecke Antriebskette springt über
+Störung Greiferkollision Rob. 1
+Tauchstation Bildschirm eingefroren
+Schutztürkreis n.i.O.
+Not-Aus-Relais nur 1 Kanal geschaltet
+Störung Druckschalter Druckluft
+Kamera Tauchstation schmeißt vermehrt Teile raus
+Zestachse Magnet verliert Teile
+
+
+
+//Mechanik H1/H7/Tempton/Formel D+K/Entgratung
+Filterpumpe Leckage
+Degen Stecker am Spannzyl. abgesoffen, Inis zeigen nicht an
+DMG X Füllstand Kühlaggregat MIN
+Messomat Teile gehen schwer ins Nest
+Messomat Greifer 1 Endlage schließen sporadisch n.i.O.
+Laser 1 keine GS-Fahrt
+Laser 1 Kamera erkennt Dorn nicht nach Umbau
+Vibrator Düsen für Schleifmittel verstopft
+Entgratung Membranpumpe fördert nicht
+BD Rücklauf verstopft
+WAMA 4 Ölabscheider eingestellt
+
+
+//Nimak
+Störung Kühlaggregat
+Absaugleistung n.I.O.
+Verklemmung in Bordscheibenzuführung
+Nimak 4 Störung Umrichter Rolltor
+
+
+//Allgemeine Störungen
+Tor XX schließt nicht
+Tor XX Türklinke locker
+Tor XX Schaltleiste locker
+Fluxraum FI ausgelöst
+Trennschleifer nicht genügend Kühlmittel
+Trennschleifer MSS ausgelöst
+Messraum Klimaanlage in Störung
+
